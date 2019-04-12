@@ -10,10 +10,6 @@ connection = pymysql.connect(host='172.26.142.174',
 
 print("connect successful!!")
 
-# host = "172.26.142.172",
-# user = "uric",
-# passwd = "uio987",
-# database = "nmcdb"
 
 mycursor = connection.cursor()
 
