@@ -4,7 +4,7 @@ from pyxlsb import convert_date
 
 import re
 
-wb = open_workbook('npi17.xlsb')
+wb = open_workbook('temp/w19.xlsb')
 
 nets    = {}
 params  = {}
@@ -68,9 +68,9 @@ for row in rows:
                     norm_value = float(norm_value)
                 else:
                     norm_value=Cell.v
-                if Net == 'Yoshkar-Ola':# Sochi  Yoshkar-Ola
-                    if params[ii] == 'CUNSSR_2G3G_NORM': #INFORMATIONAL CUNSSR_2G3G_NORM
-                        print(norm_value)
+                #if Net == 'Yoshkar-Ola':# Sochi  Yoshkar-Ola
+                    #if params[ii] == 'CUNSSR_2G3G_NORM': #INFORMATIONAL CUNSSR_2G3G_NORM
+                        #print(norm_value)
                 norms[params[ii]]=norm_value
                 if params[ii] == 'NET':
                     Net=Cell.v
@@ -91,7 +91,7 @@ for row in rows:
 # datetime.datetime(2012, 11, 22, 10, 56, 19)
 
 sql_list=[]
-sql="INSERT INTO NPI.TEST_PY_NORM_NPI ({param_name}) VALUES ({param_value})"
+sql="INSERT INTO NPI.V1904_NORM_KPI ({param_name}) VALUES ({param_value})"
 for netmonth in nets:
     #print(nets[net])
     param_names     = ''
@@ -128,7 +128,7 @@ connstr = 'NPI/NPI@10.136.12.164:1521/RAN'
 con = cx_Oracle.connect(connstr)
 
 cur = con.cursor()
-cur.execute('TRUNCATE TABLE NPI.TEST_PY_NORM_NPI')
+cur.execute('TRUNCATE TABLE NPI.V1904_NORM_KPI')
 con.commit()
 
 

@@ -30,7 +30,7 @@ first_column = ws['B']
 # Print the contents
 for x in range(len(first_column)):
     if x!=0:
-        print(str(x)+str(first_column[x].value))
+        print(str(x)+" "+str(first_column[x].value))
         ws.cell(row=x+1, column=3).value  = first_column[x].value*2
     else:
         pass

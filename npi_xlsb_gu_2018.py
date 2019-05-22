@@ -4,8 +4,8 @@ from pyxlsb import convert_date
 
 import re
 
-wb = open_workbook('npi16.xlsb')
-RECDATE_SH="TO_DATE('15.04.2019','DD.MM.YYYY')"
+wb = open_workbook('npi17.xlsb')
+#RECDATE_SH="TO_DATE('15.04.2019','DD.MM.YYYY')"
 RECDATEemptyFLAG=0
 RECDATEshCHflag=0
 params={}
@@ -14,7 +14,7 @@ rows    = wb.get_sheet('KPIs_GU_W').rows()
 
 cellsList=[1,0,2,3,4,5,6,7,8,9,10,11,12,20,21,22,23,24,25,26,27,28,29,30,31,32,33]
 
-print("SEARCHING "+RECDATE_SH+" on KPIs_GU_W")
+#print("SEARCHING "+RECDATE_SH+" on KPIs_GU_W")
 
 i = 0
 for row in rows:
@@ -64,7 +64,9 @@ for row in rows:
                         StrMM=str(MM)
                     RECDATE="TO_DATE('"+StrDay+'.'+StrMM+'.'+str(convert_date(Cell.v).year)+"','DD.MM.YYYY')"
                     #print(RECDATE)
-                    if RECDATE == RECDATE_SH:
+                    #if RECDATE == RECDATE_SH:
+
+                    if re.search('(2018|2019)', RECDATE):
                         RECDATEflag = 1
                         RECDATEshCHflag = 1
                         ROW[PARAMname] = RECDATE
@@ -114,7 +116,7 @@ connstr = 'NPI/NPI@10.136.12.164:1521/RAN'
 con = cx_Oracle.connect(connstr)
 
 cur = con.cursor()
-sql="DELETE FROM NPI.V1904_XLSB_GU WHERE RECDATE={RECDATEsh}".format(RECDATEsh=RECDATE_SH)
+sql="TRUNCATE TABLE NPI.V1904_XLSB_GU "
 print(sql)
 cur.execute(sql)
 con.commit()

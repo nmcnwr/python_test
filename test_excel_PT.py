@@ -9,12 +9,12 @@ dan	    3	3
 liza	4	4
 '''
 
-wb = openpyxl.load_workbook(filename = './excel_file.xlsx')
+wb = openpyxl.load_workbook(filename = './npi.xlsb')
 
 # active list
 ws = wb.active
 # or list name
-ws = wb['list1']
+ws = wb['Weight_GU']
 # or list number
 ws = wb.worksheets[0]
 
@@ -31,17 +31,18 @@ first_column = ws['B']
 for x in range(len(first_column)):
     if x!=0:
         print(str(x)+" "+str(first_column[x].value))
-        ws.cell(row=x+1, column=3).value  = first_column[x].value*2
+        #ws.cell(row=x+1, column=3).value  = first_column[x].value*2
     else:
         pass
 
 # writing values to cells:
 #e3
-ws['E3']                        = 10
+#ws['E3']                        = 10
 #e4
-ws.cell(row=4, column=5).value  = 20
+#ws.cell(row=4, column=5).value  = 20
 #e5
-e5                              = ws.cell(row=5, column=5)
-e5.value                        = 30
+#e5                              = ws.cell(row=5, column=5)
+#e5.value                        = 30
 
-wb.save("excel_file.xlsx")
+#wb.save("excel_file.xlsb")
+wb.close("excel_file.xlsb")
