@@ -117,6 +117,7 @@ cur = con.cursor()
 sql="DELETE FROM NPI.V1904_XLSB_GU WHERE RECDATE={RECDATEsh}".format(RECDATEsh=RECDATE_SH)
 print(sql)
 cur.execute(sql)
+cur.execute("alter session  set NLS_NUMERIC_CHARACTERS= '.,'")
 con.commit()
 
 SUCC    =0

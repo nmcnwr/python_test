@@ -122,6 +122,7 @@ cur = con.cursor()
 sql="TRUNCATE TABLE NPI.V1904_KPIS_W"
 print(sql)
 cur.execute(sql)
+cur.execute("alter session  set NLS_NUMERIC_CHARACTERS= '.,'")
 con.commit()
 
 SUCC    =0

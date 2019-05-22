@@ -129,6 +129,7 @@ con = cx_Oracle.connect(connstr)
 
 cur = con.cursor()
 cur.execute('TRUNCATE TABLE NPI.V1904_NORM_KPI')
+cur.execute("alter session  set NLS_NUMERIC_CHARACTERS= '.,'")
 con.commit()
 
 

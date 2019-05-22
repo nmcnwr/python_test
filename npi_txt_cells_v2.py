@@ -66,6 +66,7 @@ cur = con.cursor()
 sql="TRUNCATE TABLE NPI.V1904_CELLS_TEMP"
 print(sql)
 cur.execute(sql)
+cur.execute("alter session  set NLS_NUMERIC_CHARACTERS= '.,'")
 con.commit()
 
 
