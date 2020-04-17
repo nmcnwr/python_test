@@ -4,8 +4,12 @@ from pyxlsb import convert_date
 
 import re
 
-wb = open_workbook('temp/w19.xlsb')
-RECDATE_SH="TO_DATE('13.05.2019','DD.MM.YYYY')"
+
+wb = open_workbook('temp/w44.xlsb')
+RECDATE_SH="TO_DATE('28.10.2019','DD.MM.YYYY')"
+
+
+
 RECDATEemptyFLAG=0
 RECDATEshCHflag=0
 params={}

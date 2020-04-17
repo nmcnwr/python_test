@@ -1,7 +1,7 @@
 import pymysql.cursors
 
 # Подключиться к базе данных.
-connection = pymysql.connect(host='172.26.142.174',
+connection = pymysql.connect(host='10.136.36.219',
                              user='uric',
                              password='uio987',
                              db='nmcdb',

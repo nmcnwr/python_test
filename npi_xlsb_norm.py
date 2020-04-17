@@ -4,7 +4,7 @@ from pyxlsb import convert_date
 
 import re
 
-wb = open_workbook('temp/w19.xlsb')
+wb = open_workbook('temp/w44.xlsb')
 
 nets    = {}
 params  = {}
@@ -23,6 +23,7 @@ for row in rows:
             param = param.replace(' ', '_')
             param = param.replace('__', '_')
             param = param.replace('_МГЦ', '')
+            param = param.replace('MOS_2G3G', 'MOS')
             if param == 'SUMMER':
                 param=prev_param.replace('_NORM','_SUMMER')
                 prev_param = ''
@@ -99,7 +100,12 @@ for netmonth in nets:
     normatives      =  nets[netmonth]
     zpt=''
     for param in normatives:
-        param_names     = param_names+zpt+param
+        param2 = ''
+        if param == 'MOS_2G3G':
+            param2='MOS'
+        else:
+            param2=param
+        param_names     = param_names+zpt+param2
         if param == 'MONTH':
             param_values_sh = "{param_value}"
         else:

@@ -61,15 +61,15 @@ def engine1():
     df100['DD'] = df100['DATETIME_ID'].dt.date
     del df100['DATETIME_ID']
 
-    print(df100.head())
+    # print(df100.head())
 
     # get last date dataframe:
     idx = df100.groupby(["LAC", "CELL_ID"])['DD'].transform(max) == df100['DD']
     df200 = df100[idx]
     del df100
 
-    print('df200 last cell date:')
-    print(df200.head())
+    # print('df200 last cell date:')
+    # print(df200.head())
 
     agglist = {
         'DD': ['count'],
@@ -112,20 +112,17 @@ def engine1():
     del df200
 
     print('df400 saving...')
-    print('df400 to file...')
+    print('df400 to file...', storage)
 
     df400 = df400.round(decimals=2)
     df400.reset_index().to_csv(storage, index=False, header=True, decimal=',', sep='\t', float_format='%.1f')
 
-    print('df400 to Oracle...')
+    print('df400 to Oracle...', tablename)
     from sqlalchemy import create_engine
     from sqlalchemy import types
     from sqlalchemy.types import Date  # String, DateTime
 
     engine = create_engine('oracle://CC:CC@RAN_dcn')
-
-    # con = engine.connect()
-    # con.execute("TRUNCATE TABLE CC.SERVER2_ER_3G_15MIN")
 
     df400 = df400.reset_index(drop=False, inplace=False)
     df400.columns = map(lambda x: str(x).upper(), df400.columns)
@@ -135,14 +132,15 @@ def engine1():
     # set VARCHAR(50) type for all string objects
     dtyp = {c: types.VARCHAR(50)
             for c in df401.columns[df401.dtypes == 'object'].tolist()}
+
     # set Date type for DD
     del dtyp["DD"]
     dtyp["DD"] = Date
 
     df401.to_sql(tablename, engine, if_exists='replace', index=False, dtype=dtyp)
+    del df401
 
-    # con.close()
-
+    print('update Oracle log table: oper_log')
     # save timestamp to Oracle oper_log
     import datetime
     dt_now = datetime.datetime.now()
@@ -151,7 +149,6 @@ def engine1():
     dtyp = {'filename': types.VARCHAR(50), 'DT': types.DateTime}
     df.to_sql('oper_log', engine, if_exists='append', index=False, dtype=dtyp)
 
-    # todo: in Oracle make procedure to delete oper_log > 2 days
 
 if __name__ == '__main__':
     main()

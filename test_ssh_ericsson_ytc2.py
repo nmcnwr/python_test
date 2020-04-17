@@ -1,6 +1,6 @@
 import paramiko
 
-host = 'ytc2'
+host = 'YTC2'
 user = 'noac_spb'
 secret = 'spb216'
 port = 22
@@ -15,23 +15,23 @@ opt = stdout.readlines()
 opt = "".join(opt)
 print(opt)
 
-
-remotefilepath=r"/home/noac_spb/cha/cmdfile/FILE1.txt"
-localfilepath=r"C:\\\\Users\\\\pbkuznetsov\\\\PycharmProjects\\\\untitled_test1\\\\venv\\\\FILE1.txt"
-#Downloading a file from remote machine
+remotefilepath = "/home/noac_spb/cha/cmdfile/FILE1.txt"
+# localfilepath=r"C:\\\\Users\\\\pbkuznetsov\\\\PycharmProjects\\\\NMC1\\\\testssh\\\\FILE1.txt"
+localfilepath = "logs\FILE1.txt"
+# Downloading a file from remote machine
 
 # ftp_client=client.open_sftp()
 # ftp_client.get(remotefilepath,localfilepath)
 # ftp_client.close()
 
-#Uploading file from local to remote machine
+# Uploading file from local to remote machine
 
-ftp_client=client.open_sftp()
+ftp_client = client.open_sftp()
 # get - ok !
-#ftp_client.get(remotefilepath,localfilepath)
+ftp_client.get(remotefilepath, localfilepath)
 
-#put - ok
-ftp_client.put(localfilepath,remotefilepath)
+# put - ok
+# ftp_client.put(localfilepath,remotefilepath)
 ftp_client.close()
 
 client.close()

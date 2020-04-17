@@ -4,7 +4,7 @@ from pyxlsb import convert_date
 
 import re
 
-wb = open_workbook('temp/w19.xlsb')
+wb = open_workbook('temp/w44.xlsb')
 #RECDATE_SH="TO_DATE('22.04.2019','DD.MM.YYYY')"
 RECDATEemptyFLAG=0
 RECDATEshCHflag=0
@@ -38,6 +38,7 @@ for row in rows:
         #import sys
         #sys.exit()
     else:
+        #print(row[CellL])
         RECDATEflag = 0
         ROW         = {}
         for CellL in cellsList:
@@ -83,8 +84,14 @@ for row in rows:
                     break
             elif RECDATEflag == 1:
                 ROW[PARAMname] = str(Cell.v)
+                #print(PARAMname + ' ' + ROW[PARAMname])
                 if re.search('(^None$|^-$)', ROW[PARAMname]):
                     ROW[PARAMname]=''
+                elif re.search('(^0.0$)', ROW[PARAMname]):
+                    if re.search('(^K_)', PARAMname):
+                        ROW[PARAMname] = '0'
+                    else:
+                        ROW[PARAMname] = ''
                 elif PARAMname == 'GEOUNIT_ID':
                     ROW[PARAMname]=re.sub('\.0$', '', ROW[PARAMname], count=0)
 
